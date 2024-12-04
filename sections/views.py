@@ -2,11 +2,12 @@ from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView,
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from sections.models import Section, SectionContent
+from sections.models import Section, Content, Tests
 from sections.permissions import IsModerator
-from sections.serializers.sections_serializers import SectionListSerializer,SectionSerializer
-from sections.serializers.section_content_serializers import SectionContentListSerializer, SectionContentSerializer
-from sections.paginators import SectionPaginator, SectionContentPaginator
+from sections.serializers.sections_serializers import SectionListSerializer, SectionSerializer
+from sections.serializers.content_serializers import ContentListSerializer, ContentSerializer
+from sections.serializers.tests_serializers import TestsSerializer, TestQuestionSerializer
+from sections.paginators import SectionPaginator, SectionContentPaginator, TestPaginator
 
 
 class SectionListAPIView(ListAPIView):
@@ -39,31 +40,52 @@ class SectionDestroyAPIView(DestroyAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser | IsModerator]
 
 
-class SectionContentAPIView(ListAPIView):
-    serializer_class = SectionContentListSerializer
-    queryset = SectionContent.objects.all()
+class ContentListAPIView(ListAPIView):
+    serializer_class = ContentListSerializer
+    queryset = Content.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = SectionContentPaginator
 
 
 class ContentCreateAPIView(CreateAPIView):
-    serializer_class = SectionContentSerializer
+    serializer_class = ContentSerializer
     permission_classes = [IsAuthenticated, IsAdminUser | IsModerator]
 
 
-class SectionContentRetrieveAPIView(RetrieveAPIView):
-    serializer_class = SectionContentSerializer
-    queryset = SectionContent.objects.all()
+class ContentRetrieveAPIView(RetrieveAPIView):
+    serializer_class = ContentSerializer
+    queryset = Content.objects.all()
     permission_classes = [IsAuthenticated]
 
 
-class SectionContentUpdateAPIView(UpdateAPIView):
-    serializer_class = SectionContentSerializer
-    queryset = SectionContent.objects.all()
+class ContentUpdateAPIView(UpdateAPIView):
+    serializer_class = ContentSerializer
+    queryset = Content.objects.all()
     permission_classes = [IsAuthenticated, IsAdminUser | IsModerator]
 
 
-class SectionContentDestroyAPIView(DestroyAPIView):
-    serializer_class = SectionContentSerializer
-    queryset = SectionContent.objects.all()
+class ContentDestroyAPIView(DestroyAPIView):
+    serializer_class = ContentSerializer
+    queryset = Content.objects.all()
     permission_classes = [IsAuthenticated, IsAdminUser | IsModerator]
+
+
+class TestListAPIView(ListAPIView):
+    serializer_class = TestsSerializer
+    queryset = Tests.objects.all()
+    permission_classes = [IsAuthenticated]
+    pagination_class = TestPaginator
+
+
+class TestQuestionRetriveAPIView(RetrieveAPIView):
+    serializer_class = TestQuestionSerializer
+    queryset = Tests.objects.all()
+
+    # permission_classes = [IsAuthenticated]
+
+    def post(self, request,*args, **kwargs):
+        answers = [test.answer for test in Tests.objects.all()]
+        answer = answers[self.kwargs.get('pk') - 1]. lower()
+        user_answer = request.data.get('user_answer').lower()
+        is_correct = user_answer == answer
+        return Response({'is_correct': is_correct})
