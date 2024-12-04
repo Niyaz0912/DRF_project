@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'redis',
 
     # project apps
-    'users'
+    'users',
+    'sections'
 ]
 
 MIDDLEWARE = [
