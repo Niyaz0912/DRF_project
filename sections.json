@@ -1,0 +1,95 @@
+[
+    {
+        "model": "sections.section",
+        "pk": 1,
+        "fields": {
+            "title": "Общие знания",
+            "description": "Раздел с вопросами на общие темы."
+        }
+    },
+    {
+        "model": "sections.content",
+        "pk": 1,
+        "fields": {
+            "section": 1,
+            "title": "Вопрос 1: Общие знания",
+            "content": "Какой самый большой океан на Земле?"
+        }
+    },
+    {
+        "model": "sections.content",
+        "pk": 2,
+        "fields": {
+            "section": 1,
+            "title": "Вопрос 2: Общие знания",
+            "content": "Кто написал 'Войну и мир'?"
+        }
+    },
+    {
+        "model": "sections.tests",
+        "pk": 1,
+        "fields": {
+            "test_section": 1,
+            "description": "Тест по общим знаниям.",
+            "question": "Какой самый большой океан на Земле?",
+            "answer": "Тихий океан"
+        }
+    },
+    {
+        "model": "sections.tests",
+        "pk": 2,
+        "fields": {
+            "test_section": 1,
+            "description": null,
+            "question": "Кто написал 'Войну и мир'?",
+            "answer": "Лев Толстой"
+        }
+    },
+    {
+        "model": "sections.section",
+        "pk": 2,
+        "fields": {
+            "title": "Наука и природа",
+            "description": "Вопросы о биологии и физике."
+        }
+    },
+    {
+        "model": "sections.content",
+        "pk": 3,
+        "fields": {
+            "section": 2,
+            "title": "Вопрос 1: Наука и природа",
+            "content": "Какой газ составляет большую часть атмосферы Земли?"
+        }
+    },
+    {
+        "model": "sections.content",
+        "pk": 4,
+        "fields": {
+            "section": 2,
+            "title": "Вопрос 2: Наука и природа",
+            "content": "Доисторическая акула"
+        }
+    },
+    {
+        "model": "sections.tests",
+        "pk": 3,
+        "fields": {
+            "test_section": 2,
+            "description": null,
+            "question": "Какой газ составляет большую часть атмосферы Земли?",
+            "answer": "Азот"
+        }
+    },
+     {
+        "model": "sections.tests",
+        "pk": 4,
+        "fields": {
+            "test_section": 2,
+            "description": null,
+            "question": "Доисторическая акула",
+            "answer": "Мегаладон"
+        }
+    }
+]
+
