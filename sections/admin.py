@@ -1,5 +1,5 @@
 from django.contrib import admin
-from  sections.models import Section, Content, Tests
+from sections.models import Section, Content, Tests
 
 
 @admin.register(Section)
@@ -20,4 +20,4 @@ class ContentAdmin(admin.ModelAdmin):
 class TestsAdmin(admin.ModelAdmin):
     list_display = ('id', 'test_section', 'description', 'question', 'answer',)
     list_filter = ('id', 'test_section',)
-    ordering = ('id', 'test_section')
+    ordering = ('id', 'test_section',)
