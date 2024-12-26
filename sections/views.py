@@ -5,7 +5,8 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from sections.models import Section, Content, Tests
 from sections.permissions import IsModerator
 from sections.serializers.sections_serializers import SectionListSerializer, SectionSerializer
-from sections.serializers.content_serializers import ContentListSerializer, ContentSerializer
+from sections.serializers.section_content_serializers import SectionContentListSerializer, ContentSerializer
+
 from sections.serializers.tests_serializers import TestsSerializer, TestQuestionSerializer
 from sections.paginators import SectionPaginator, SectionContentPaginator, TestPaginator
 
@@ -41,7 +42,7 @@ class SectionDestroyAPIView(DestroyAPIView):
 
 
 class ContentListAPIView(ListAPIView):
-    serializer_class = ContentListSerializer
+    serializer_class = SectionContentListSerializer
     queryset = Content.objects.all()
     permission_classes = [IsAuthenticated]
     pagination_class = SectionContentPaginator
@@ -77,7 +78,7 @@ class TestListAPIView(ListAPIView):
     pagination_class = TestPaginator
 
 
-class TestQuestionRetriveAPIView(RetrieveAPIView):
+class TestQuestionRetrieveAPIView(RetrieveAPIView):
     serializer_class = TestQuestionSerializer
     queryset = Tests.objects.all()
 
