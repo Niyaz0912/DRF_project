@@ -1,26 +1,26 @@
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, AuthUser
-from rest_framework_simplejwt.tokens import Token
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from users.validators import PasswordValidator
 from users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = ['id', 'email', 'first_name', 'last_name', 'phone', 'is_active']
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=True)
     password = serializers.CharField(write_only=True, required=True, min_length=8, max_length=16)
 
     class Meta:
         model = User
         fields = ['email', 'password']
-        validators = [
-            PasswordValidator(field='password')
-        ]
+        # validators = [PasswordValidator('password')]
+        validators = [PasswordValidator(field='password')]
 
     def create(self, validated_data):
         user = User.objects.create(**validated_data)
